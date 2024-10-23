@@ -5,6 +5,7 @@ return {
   version = false,
   opts = {
     provider = 'openai',
+    hints = { enabled = false },
   },
   build = 'make',
   dependencies = {
