@@ -574,6 +574,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        eslint = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -630,6 +631,24 @@ require('lazy').setup({
             require('lspconfig')[server_name].setup(server)
           end,
         },
+      }
+    end,
+  },
+  {
+    'dense-analysis/ale',
+    config = function()
+      -- Configuration goes here.
+      local g = vim.g
+
+      g.ale_ruby_rubocop_auto_correct_all = 1
+
+      g.ale_linters = {
+        javascript = { 'eslint' },
+        typescript = { 'eslint' },
+        javascriptreact = { 'eslint' },
+        typescriptreact = { 'eslint' },
+        ruby = { 'rubocop', 'ruby' },
+        lua = { 'lua_language_server' },
       }
     end,
   },
@@ -809,11 +828,9 @@ require('lazy').setup({
     'catppuccin/nvim',
     lazy = false,
     name = 'catppuccin',
-R   opts = {
-      flavour = 'macchiato',
-    },
+    opts = { colorscheme = 'mocha' },
     init = function()
-      vim.cmd.colorscheme 'catppuccin-macchiato'
+      vim.cmd.colorscheme 'catppuccin-mocha'
     end,
   },
 
