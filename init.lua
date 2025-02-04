@@ -98,6 +98,7 @@ vim.keymap.set('n', '<leader>b8', ':lua require("bufferline").go_to_buffer(8, tr
 vim.keymap.set('n', '<leader>b9', ':lua require("bufferline").go_to_buffer(9, true)<CR>', { silent = true, desc = 'Goto buffer 9' })
 vim.keymap.set('n', '<leader>b$', ':lua require("bufferline").go_to_buffer($, true)<CR>', { silent = true, desc = 'Goto last buffer' })
 vim.keymap.set('n', '<leader>bd', ':bp|bd #<CR>', { noremap = true, desc = 'Delete buffer' })
+vim.keymap.set('n', '<leader>bD', ':bw! #<CR>', { noremap = true, desc = 'Delete buffer force' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>ux', vim.diagnostic.setloclist, { desc = 'Toggle diagnostic quickfix list' })
@@ -271,15 +272,20 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
+        { '<leader>a', group = 'AI', icon = { icon = '󰅭 ' } },
         { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
-        { '<leader>f', group = 'File & Search' },
+        { '<leader>f', group = 'File & Search', icon = { icon = ' ' } },
         { '<leader>t', group = 'Test', icon = { icon = '󰙨 ' } },
-        { '<leader>g', group = 'Git' },
-        { '<leader>u', group = 'UI' },
+        { '<leader>g', group = 'Git', icon = { icon = ' ' } },
+        { '<leader>u', group = 'UI', icon = { icon = ' ' } },
         { '<leader>d', group = 'Diagnostics', icon = { icon = '󱖫 ' } },
-        { '<leader>h', group = 'Harpoon' },
+        { '<leader>h', group = 'Harpoon', icon = { icon = '󰙅 ' } },
+        { '<leader>:', group = 'Command History', icon = { icon = ' ' } },
+        { '<leader>q', group = 'Sessions', icon = { icon = ' ' } },
+        { '<leader>n', group = 'Noice', icon = { icon = '󰈸 ' } },
         {
           '<leader>b',
+          icon = { icon = ' ' },
           group = 'Buffer',
           expand = function()
             return require('which-key.extras').expand.buf()

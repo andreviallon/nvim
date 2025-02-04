@@ -31,6 +31,7 @@ return {
     { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
     { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers right' },
     { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers left' },
+    { '<leader>bD', '<Cmd>:bw!<CR>', desc = 'Delete buffer force' },
     { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
     { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
     { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
