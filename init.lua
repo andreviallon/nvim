@@ -52,9 +52,6 @@ vim.keymap.set('n', '<leader>b$', ':lua require("bufferline").go_to_buffer($, tr
 vim.keymap.set('n', '<leader>bd', ':bp|bd #<CR>', { noremap = true, desc = 'Delete buffer' })
 vim.keymap.set('n', '<leader>bD', ':bw! #<CR>', { noremap = true, desc = 'Delete buffer force' })
 
--- Terminal
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
 -- Diagnostics
 vim.keymap.set('n', '<leader>ux', vim.diagnostic.setloclist, { desc = 'Toggle diagnostic quickfix list' })
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous diagnostic message' })
@@ -126,7 +123,7 @@ require('lazy').setup({
       },
     },
   },
-  install = { colorscheme = { 'tokyonight', 'catppuccin' } },
+  install = { colorscheme = { 'catppuccin' } },
   {
     'catppuccin/nvim',
     lazy = false,
@@ -140,6 +137,7 @@ require('lazy').setup({
     'folke/which-key.nvim',
     event = 'VimEnter',
     opts = {
+      preset = 'helix',
       icons = {
         mappings = vim.g.have_nerd_font,
         keys = vim.g.have_nerd_font and {} or {
