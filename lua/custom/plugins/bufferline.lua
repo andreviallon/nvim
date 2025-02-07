@@ -23,6 +23,7 @@ return {
           text_align = 'center',
         },
       },
+      max_name_length = 300,
     },
   },
   keys = {

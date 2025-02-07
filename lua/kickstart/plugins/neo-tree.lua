@@ -3,6 +3,11 @@
 
 return {
   'nvim-neo-tree/neo-tree.nvim',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-tree/nvim-web-devicons',
+    'MunifTanjim/nui.nvim',
+  },
   cmd = 'Neotree',
   keys = {
     { '<leader>e', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
@@ -72,6 +77,10 @@ return {
     },
   },
   config = function(_, opts)
+    vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
+    vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
+    vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
+    vim.fn.sign_define('DiagnosticSignHint', { text = '󰌵', texthl = 'DiagnosticSignHint' })
     opts.event_handlers = opts.event_handlers or {}
     require('neo-tree').setup(opts)
     vim.api.nvim_create_autocmd('TermClose', {

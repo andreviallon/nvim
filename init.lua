@@ -24,6 +24,20 @@ vim.opt.scrolloff = 15
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- [[ Spell Check ]]
+vim.opt.spell = true
+vim.opt.spelllang = 'en'
+vim.opt.spelloptions = 'camel'
+vim.opt.spellfile = vim.fn.expand '~/.config/nvim/spell/custom.utf-8.add'
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'lua', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'markdown' },
+  callback = function()
+    vim.opt.spell = true
+    vim.opt.spelloptions = 'camel'
+  end,
+})
+
 -- Sync clipboard between OS and Neovim.
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
