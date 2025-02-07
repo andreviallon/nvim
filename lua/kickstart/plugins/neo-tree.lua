@@ -32,10 +32,14 @@ return {
     open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
     filesystem = {
       bind_to_cwd = false,
-      follow_current_file = { enabled = true },
+      follow_current_file = {
+        enable = true,
+      },
       use_libuv_file_watcher = true,
+      hijack_netrw_behavior = 'open_default',
     },
     window = {
+      width = 50,
       mappings = {
         ['<leader>e'] = 'close_window',
         ['l'] = 'open',
