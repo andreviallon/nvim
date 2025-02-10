@@ -1,28 +1,11 @@
 return {
-  { 'github/copilot.vim' },
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    build = ':Copilot auth',
-    lazy = true,
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-      filetypes = {
-        markdown = true,
-        help = true,
-      },
-    },
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    event = 'InsertEnter',
-    lazy = true,
-    config = function()
-      require('copilot_cmp').setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    end,
-  },
+  'github/copilot.vim',
+  dependencies = { 'catppuccin/nvim' },
+  event = 'VimEnter',
+  lazy = true,
+  init = function()
+    vim.g.copilot_no_tab_map = false
+    vim.g.copilot_workspace_folders = { vim.fn.getcwd() }
+  end,
+  keys = {},
 }

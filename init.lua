@@ -1,4 +1,4 @@
--- [[ Gloval Variables ]]
+-- [[ Global Variables ]]
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
@@ -302,7 +302,7 @@ require('lazy').setup({
       indent = { enable = true },
     },
   },
-  require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
