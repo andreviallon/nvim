@@ -28,13 +28,6 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('gd', '<cmd>FzfLua lsp_definitions jump_to_single_result=true ignore_current_line=true<cr>', 'Goto Definition')
-          map('gr', '<cmd>FzfLua lsp_references jump_to_single_result=true ignore_current_line=true<cr>', 'References', { nowait = true })
-          map('gI', '<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>', 'Goto Implementation')
-          map('gy', '<cmd>FzfLua lsp_typedefs jump_to_single_result=true ignore_current_line=true<cr>', 'Goto Type Definition')
-          map('<leader>cd', '<cmd>FzfLua lsp_typedefs<cr>', 'Type definition')
-          map('<leader>cs', '<cmd>FzfLua lsp_document_symbols<cr>', 'Document symbols')
-          map('<leader>cS', '<cmd>FzfLua lsp_workspace_symbols<cr>', 'Workspace symbols')
           map('<leader>cr', vim.lsp.buf.rename, 'Rename')
           map('<leader>ca', vim.lsp.buf.code_action, 'Code action', { 'n', 'x' })
           map('gD', vim.lsp.buf.declaration, 'Goto Declaration')
