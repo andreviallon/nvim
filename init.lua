@@ -63,8 +63,6 @@ vim.keymap.set('n', '<leader>b7', ':lua require("bufferline").go_to_buffer(7, tr
 vim.keymap.set('n', '<leader>b8', ':lua require("bufferline").go_to_buffer(8, true)<CR>', { silent = true, desc = 'Goto buffer 8' })
 vim.keymap.set('n', '<leader>b9', ':lua require("bufferline").go_to_buffer(9, true)<CR>', { silent = true, desc = 'Goto buffer 9' })
 vim.keymap.set('n', '<leader>b$', ':lua require("bufferline").go_to_buffer($, true)<CR>', { silent = true, desc = 'Goto last buffer' })
-vim.keymap.set('n', '<leader>bd', ':bp|bd #<CR>', { noremap = true, desc = 'Delete buffer' })
-vim.keymap.set('n', '<leader>bD', ':bw! #<CR>', { noremap = true, desc = 'Delete buffer force' })
 
 -- Diagnostics
 vim.keymap.set('n', '<leader>ux', vim.diagnostic.setloclist, { desc = 'Toggle diagnostic quickfix list' })
@@ -306,7 +304,7 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
+  -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns',
   { import = 'custom.plugins' },
 }, {
