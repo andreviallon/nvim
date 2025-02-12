@@ -1,6 +1,5 @@
 return {
   'hrsh7th/nvim-cmp',
-  lazy = true,
   event = 'InsertEnter',
   dependencies = {
     'hrsh7th/cmp-buffer',
@@ -14,6 +13,10 @@ return {
   },
   config = function()
     local cmp = require 'cmp'
+    local luasnip = require 'luasnip'
+
+    luasnip.config.set_config {}
+
     cmp.setup {
       completion = {
         completeopt = 'menu,menuone,preview,noselect',
@@ -30,6 +33,7 @@ return {
       sources = cmp.config.sources {
         { name = 'nvim_lsp' },
         { name = 'copilot' },
+        { name = 'luasnip' }, -- ✅ Added missing LuaSnip source
         { name = 'buffer' },
         { name = 'path' },
       },

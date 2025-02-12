@@ -7,7 +7,6 @@ return {
     lint.linters_by_ft = {
       javascript = { 'eslint' },
       typescript = { 'eslint' },
-      lua = { 'luacheck' },
     }
 
     local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
