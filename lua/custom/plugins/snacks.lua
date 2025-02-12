@@ -21,6 +21,15 @@ return {
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+    {
+      "<leader>ft",
+      function()
+        local filetype = vim.fn.input 'Enter file extension:'
+        if filetype ~= '' then
+          Snacks.picker.grep { glob = '**/*.' .. filetype }
+        end
+      end,
+      desc = "Search by File Type" },
 
     -- Buffers
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
