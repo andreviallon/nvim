@@ -2,13 +2,13 @@ return {
   'akinsho/bufferline.nvim',
   version = '*',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  event = { 'VimEnter' },
+  event = 'VimEnter',
   init = function()
     vim.opt.termguicolors = true
   end,
   opts = {
     options = {
-      close_command = 'bp|sp|bn|bd! %d',
+      close_command = 'bd! %d',
       show_tab_indicators = true,
       separator_style = 'thick',
       diagnostics = 'nvim_lsp',
@@ -23,7 +23,7 @@ return {
           text_align = 'center',
         },
       },
-      max_name_length = 300,
+      max_name_length = 100,
     },
   },
   keys = {
