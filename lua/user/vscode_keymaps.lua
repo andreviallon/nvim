@@ -1,0 +1,107 @@
+local keymap = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+keymap("n", "<Space>", "", opts)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- Yank to system clipboard
+keymap({ "n", "v" }, "<leader>y", '"+y', opts)
+
+-- Paste from system clipboard
+keymap({ "n", "v" }, "<leader>p", '"+p', opts)
+
+-- Paste preserves primal yanked piece
+keymap("v", "p", '"_dP', opts)
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank({ timeout = 200 })
+  end,
+})
+
+-- Better indent handling
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+
+-- Window navigation
+keymap('n', '<C-h>', '<Cmd>call VSCodeNotify("workbench.action.navigateLeft")<CR>', opts)
+keymap('n', '<C-l>', '<Cmd>call VSCodeNotify("workbench.action.navigateRight")<CR>', opts)
+keymap('n', '<C-k>', '<Cmd>call VSCodeNotify("workbench.action.navigateUp")<CR>', opts)
+keymap('n', '<C-j>', '<Cmd>call VSCodeNotify("workbench.action.navigateDown")<CR>', opts)
+
+-- Window splitting
+keymap('n', '<leader>sh', '<Cmd>call VSCodeNotify("workbench.action.splitEditor")<CR>', opts)
+keymap('n', '<leader>sv', '<Cmd>call VSCodeNotify("workbench.action.splitEditorDown")<CR>', opts)
+
+-- Navigation
+keymap('n', '<leader><Space>', '<Cmd>call VSCodeNotify("workbench.action.quickOpen")<CR>', opts)
+keymap('n', '<leader>/', '<Cmd>call VSCodeNotify("workbench.action.findInFiles")<CR>', opts)
+keymap('n', '<leader>.', '<Cmd>call VSCodeNotify("workbench.action.showAllEditors")<CR>', opts)
+
+-- File Explorer
+keymap('n', '<leader>e', '<Cmd>call VSCodeNotify("workbench.action.toggleSidebarVisibility")<CR>', opts)
+
+-- LSP
+keymap('n', 'K', '<Cmd>call VSCodeNotify("editor.action.showHover")<CR>', opts)
+keymap('n', '<leader>ca', '<Cmd>call VSCodeNotify("editor.action.codeAction")<CR>', opts)
+keymap('n', '<leader>cr', '<Cmd>call VSCodeNotify("editor.action.rename")<CR>', opts)
+
+-- Movement
+keymap('n', '<C-n>', '<Cmd>call VSCodeNotify("editor.action.addSelectionToNextFindMatch")<CR>', opts)
+keymap('x', '<A-j>', '<Cmd>call VSCodeNotify("editor.action.moveLinesDownAction")<CR>', opts)
+keymap('x', '<A-k>', '<Cmd>call VSCodeNotify("editor.action.moveLinesUpAction")<CR>', opts)
+
+-- Buffer navigation
+keymap('n', '<leader>bd', '<Cmd>call VSCodeNotify("workbench.action.closeActiveEditor")<CR>', opts)
+keymap('n', 'H', '<Cmd>call VSCodeNotify("workbench.action.previousEditor")<CR>', opts)
+keymap('n', 'L', '<Cmd>call VSCodeNotify("workbench.action.nextEditor")<CR>', opts)
+
+-- Goto
+keymap('n', 'gd', '<Cmd>call VSCodeNotify("editor.action.revealDefinition")<CR>', opts)
+keymap('n', 'gs', '<Cmd>call VSCodeNotify("workbench.action.gotoSymbol")<CR>', opts)
+keymap('n', 'gr', '<Cmd>call VSCodeNotify("editor.action.goToReferences")<CR>', opts)
+keymap('n', 'gi', '<Cmd>call VSCodeNotify("editor.action.goToImplementation")<CR>', opts)
+
+-- Git (expanded section)
+-- Basic SCM
+keymap('n', '<leader>gg', '<Cmd>call VSCodeNotify("workbench.view.scm")<CR>', opts)
+keymap('n', '<leader>gc', '<Cmd>call VSCodeNotify("git.commit")<CR>', opts)
+keymap('n', '<leader>gp', '<Cmd>call VSCodeNotify("git.push")<CR>', opts)
+keymap('n', '<leader>gP', '<Cmd>call VSCodeNotify("git.pull")<CR>', opts)
+keymap('n', '<leader>gf', '<Cmd>call VSCodeNotify("git.fetch")<CR>', opts)
+
+-- Staging
+keymap('n', '<leader>ga', '<Cmd>call VSCodeNotify("git.stage")<CR>', opts)
+keymap('n', '<leader>gA', '<Cmd>call VSCodeNotify("git.stageAll")<CR>', opts)
+keymap('n', '<leader>gu', '<Cmd>call VSCodeNotify("git.unstage")<CR>', opts)
+keymap('n', '<leader>gU', '<Cmd>call VSCodeNotify("git.unstageAll")<CR>', opts)
+keymap('n', '<leader>gs', '<Cmd>call VSCodeNotify("git.stageSelectedRanges")<CR>', opts)
+keymap('n', '<leader>gS', '<Cmd>call VSCodeNotify("git.unstageSelectedRanges")<CR>', opts)
+
+-- Changes
+keymap('n', '<leader>gd', '<Cmd>call VSCodeNotify("git.openChange")<CR>', opts)
+keymap('n', '<leader>gx', '<Cmd>call VSCodeNotify("git.clean")<CR>', opts)
+keymap('n', '<leader>gr', '<Cmd>call VSCodeNotify("git.revertSelectedRanges")<CR>', opts)
+keymap('n', '<leader>gR', '<Cmd>call VSCodeNotify("git.revertChange")<CR>', opts)
+
+-- Branch operations
+keymap('n', '<leader>gb', '<Cmd>call VSCodeNotify("git.checkout")<CR>', opts)
+keymap('n', '<leader>gB', '<Cmd>call VSCodeNotify("git.createBranch")<CR>', opts)
+keymap('n', '<leader>gm', '<Cmd>call VSCodeNotify("git.merge")<CR>', opts)
+
+-- History/Blame
+keymap('n', '<leader>gl', '<Cmd>call VSCodeNotify("git.openFile")<CR>', opts)
+keymap('n', '<leader>gL', '<Cmd>call VSCodeNotify("gitlens.toggleFileBlame")<CR>', opts)
+keymap('n', '<leader>gh', '<Cmd>call VSCodeNotify("gitlens.showQuickFileHistory")<CR>', opts)
+
+-- Diagnostics
+keymap('n', '<leader>dd', '<Cmd>call VSCodeNotify("workbench.actions.view.problems")<CR>', opts)
+keymap('n', '[d', '<Cmd>call VSCodeNotify("editor.action.marker.prev")<CR>', opts)
+keymap('n', ']d', '<Cmd>call VSCodeNotify("editor.action.marker.next")<CR>', opts)
+
+-- Tests
+keymap('n', '<leader>tT', '<Cmd>call VSCodeNotify("extension.runJestFile")<CR>', opts)
+keymap('n', '<leader>tt', '<Cmd>call VSCodeNotify("extension.runJest")<CR>', opts)
