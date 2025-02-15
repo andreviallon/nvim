@@ -72,7 +72,8 @@ keymap('n', 'gi', '<Cmd>call VSCodeNotify("editor.action.goToImplementation")<CR
 -- Git
 keymap('n', '[c', '<Cmd>call VSCodeNotify("editor.action.dirtydiff.previous")<CR>', opts)
 keymap('n', ']c', '<Cmd>call VSCodeNotify("editor.action.dirtydiff.next")<CR>', opts)
-keymap('n', '<leader>gg', '<Cmd>call VSCodeNotify("workbench.view.scm")<CR>', opts)
+keymap('n', '<leader>jg', '<Cmd>call VSCodeNotify("workbench.action.terminal.new")<CR><Cmd>call VSCodeNotify("workbench.action.terminal.sendSequence", {"text": "lazygit\\u000D"})<CR>', opts)
+keymap('n', '<leader>gg', '<Cmd>call VSCodeNotify("workbench.action.createTerminalEditor")<CR><Cmd>call VSCodeNotify("workbench.action.terminal.sendSequence", {"text": "lazygit\\u000D"})<CR>', opts)
 keymap('n', '<leader>gf', '<Cmd>call VSCodeNotify("git.fetch")<CR>', opts)
 keymap('n', '<leader>gp', '<Cmd>call VSCodeNotify("git.pull")<CR>', opts)
 keymap('n', '<leader>gP', '<Cmd>call VSCodeNotify("git.push")<CR>', opts)
@@ -86,7 +87,6 @@ keymap('n', '<leader>gS', '<Cmd>call VSCodeNotify("git.unstageSelectedRanges")<C
 keymap('v', '<leader>gS', '<Cmd>call VSCodeNotify("git.unstageSelectedRanges")<CR>', opts)
 keymap('n', '<leader>gd', '<Cmd>call VSCodeNotify("editor.action.dirtydiff.next")<CR>', opts)
 keymap('n', '<leader>gD', '<Cmd>call VSCodeNotify("git.openChange")<CR>', opts)
-keymap('n', '<leader>gx', '<Cmd>call VSCodeNotify("git.clean")<CR>', opts)
 keymap('v', '<leader>gr', '<Cmd>call VSCodeNotify("git.revertSelectedRanges")<CR>', opts)
 keymap('n', '<leader>gr', '<Cmd>call VSCodeNotify("git.revertSelectedRanges")<CR>', opts)
 keymap('n', '<leader>gR', '<Cmd>call VSCodeNotify("git.revertChange")<CR>', opts)
