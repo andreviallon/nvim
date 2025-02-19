@@ -45,6 +45,9 @@ keymap('n', '<leader><Space>', '<Cmd>call VSCodeNotify("workbench.action.quickOp
 keymap('n', '<leader>/', '<Cmd>call VSCodeNotify("workbench.action.findInFiles")<CR>', opts)
 keymap('n', '<leader>.', '<Cmd>call VSCodeNotify("workbench.action.showAllEditors")<CR>', opts)
 
+-- Notifications
+keymap('n', '<leader>nn', '<Cmd>call VSCodeNotify("notifications.showList")<CR>', opts)
+
 -- File Explorer
 keymap('n', '<leader>e', '<Cmd>call VSCodeNotify("workbench.action.toggleSidebarVisibility")<CR>', opts)
 
