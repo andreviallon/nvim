@@ -4,7 +4,7 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
 if vim.g.vscode then
-  require "user.vscode_keymaps"
+  require 'user.vscode_keymaps'
 else
   vim.opt.wrap = false
   vim.opt.number = true
@@ -54,27 +54,23 @@ else
   vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })
   vim.keymap.set('n', '<leader>:', 'q:', { desc = 'Command history' })
 
+  -- Window
+  vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+
   -- Buffer
-  vim.keymap.set('n', '<leader>b1', ':lua require("bufferline").go_to_buffer(1, true)<CR>',
-    { silent = true, desc = 'Goto buffer 1' })
-  vim.keymap.set('n', '<leader>b2', ':lua require("bufferline").go_to_buffer(2, true)<CR>',
-    { silent = true, desc = 'Goto buffer 2' })
-  vim.keymap.set('n', '<leader>b3', ':lua require("bufferline").go_to_buffer(3, true)<CR>',
-    { silent = true, desc = 'Goto buffer 3' })
-  vim.keymap.set('n', '<leader>b4', ':lua require("bufferline").go_to_buffer(4, true)<CR>',
-    { silent = true, desc = 'Goto buffer 4' })
-  vim.keymap.set('n', '<leader>b5', ':lua require("bufferline").go_to_buffer(5, true)<CR>',
-    { silent = true, desc = 'Goto buffer 5' })
-  vim.keymap.set('n', '<leader>b6', ':lua require("bufferline").go_to_buffer(6, true)<CR>',
-    { silent = true, desc = 'Goto buffer 6' })
-  vim.keymap.set('n', '<leader>b7', ':lua require("bufferline").go_to_buffer(7, true)<CR>',
-    { silent = true, desc = 'Goto buffer 7' })
-  vim.keymap.set('n', '<leader>b8', ':lua require("bufferline").go_to_buffer(8, true)<CR>',
-    { silent = true, desc = 'Goto buffer 8' })
-  vim.keymap.set('n', '<leader>b9', ':lua require("bufferline").go_to_buffer(9, true)<CR>',
-    { silent = true, desc = 'Goto buffer 9' })
-  vim.keymap.set('n', '<leader>b$', ':lua require("bufferline").go_to_buffer($, true)<CR>',
-    { silent = true, desc = 'Goto last buffer' })
+  vim.keymap.set('n', '<leader>b1', ':lua require("bufferline").go_to_buffer(1, true)<CR>', { silent = true, desc = 'Goto buffer 1' })
+  vim.keymap.set('n', '<leader>b2', ':lua require("bufferline").go_to_buffer(2, true)<CR>', { silent = true, desc = 'Goto buffer 2' })
+  vim.keymap.set('n', '<leader>b3', ':lua require("bufferline").go_to_buffer(3, true)<CR>', { silent = true, desc = 'Goto buffer 3' })
+  vim.keymap.set('n', '<leader>b4', ':lua require("bufferline").go_to_buffer(4, true)<CR>', { silent = true, desc = 'Goto buffer 4' })
+  vim.keymap.set('n', '<leader>b5', ':lua require("bufferline").go_to_buffer(5, true)<CR>', { silent = true, desc = 'Goto buffer 5' })
+  vim.keymap.set('n', '<leader>b6', ':lua require("bufferline").go_to_buffer(6, true)<CR>', { silent = true, desc = 'Goto buffer 6' })
+  vim.keymap.set('n', '<leader>b7', ':lua require("bufferline").go_to_buffer(7, true)<CR>', { silent = true, desc = 'Goto buffer 7' })
+  vim.keymap.set('n', '<leader>b8', ':lua require("bufferline").go_to_buffer(8, true)<CR>', { silent = true, desc = 'Goto buffer 8' })
+  vim.keymap.set('n', '<leader>b9', ':lua require("bufferline").go_to_buffer(9, true)<CR>', { silent = true, desc = 'Goto buffer 9' })
+  vim.keymap.set('n', '<leader>b$', ':lua require("bufferline").go_to_buffer($, true)<CR>', { silent = true, desc = 'Goto last buffer' })
 
   -- Diagnostics
   vim.keymap.set('n', '<leader>ux', vim.diagnostic.setloclist, { desc = 'Toggle diagnostic quickfix list' })
@@ -325,4 +321,3 @@ else
     },
   })
 end
-
