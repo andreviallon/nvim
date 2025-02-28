@@ -60,18 +60,6 @@ else
   vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
-  -- Buffer
-  vim.keymap.set('n', '<leader>b1', ':lua require("bufferline").go_to_buffer(1, true)<CR>', { silent = true, desc = 'Goto buffer 1' })
-  vim.keymap.set('n', '<leader>b2', ':lua require("bufferline").go_to_buffer(2, true)<CR>', { silent = true, desc = 'Goto buffer 2' })
-  vim.keymap.set('n', '<leader>b3', ':lua require("bufferline").go_to_buffer(3, true)<CR>', { silent = true, desc = 'Goto buffer 3' })
-  vim.keymap.set('n', '<leader>b4', ':lua require("bufferline").go_to_buffer(4, true)<CR>', { silent = true, desc = 'Goto buffer 4' })
-  vim.keymap.set('n', '<leader>b5', ':lua require("bufferline").go_to_buffer(5, true)<CR>', { silent = true, desc = 'Goto buffer 5' })
-  vim.keymap.set('n', '<leader>b6', ':lua require("bufferline").go_to_buffer(6, true)<CR>', { silent = true, desc = 'Goto buffer 6' })
-  vim.keymap.set('n', '<leader>b7', ':lua require("bufferline").go_to_buffer(7, true)<CR>', { silent = true, desc = 'Goto buffer 7' })
-  vim.keymap.set('n', '<leader>b8', ':lua require("bufferline").go_to_buffer(8, true)<CR>', { silent = true, desc = 'Goto buffer 8' })
-  vim.keymap.set('n', '<leader>b9', ':lua require("bufferline").go_to_buffer(9, true)<CR>', { silent = true, desc = 'Goto buffer 9' })
-  vim.keymap.set('n', '<leader>b$', ':lua require("bufferline").go_to_buffer($, true)<CR>', { silent = true, desc = 'Goto last buffer' })
-
   -- Diagnostics
   vim.keymap.set('n', '<leader>ux', vim.diagnostic.setloclist, { desc = 'Toggle diagnostic quickfix list' })
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous diagnostic message' })
@@ -81,6 +69,17 @@ else
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   end, { silent = true, noremap = true })
 
+  vim.diagnostic.config {
+    virtual_text = {
+      severity = { min = vim.diagnostic.severity.ERROR },
+    },
+    underline = {
+      severity = { min = vim.diagnostic.severity.WARN }, -- Underline warnings and above
+    },
+    signs = true,
+    update_in_insert = false,
+  }
+
   -- Move lines up and down
   vim.keymap.set('n', '<C-j>', ':m .+1<CR>==')
   vim.keymap.set('n', '<C-k>', ':m .-2<CR>==')
@@ -88,8 +87,8 @@ else
   vim.keymap.set('v', '<C-k>', ":m '<-2<CR>gv=gv")
 
   -- Window
-  vim.keymap.set('n', '<leader>ss', ':split<Return>', { desc = 'Split window below', noremap = true, silent = true })
-  vim.keymap.set('n', '<leader>sv', ':vsplit<Return>', { desc = 'Split window right', noremap = true, silent = true })
+  vim.keymap.set('n', '<leader>sh', ':split<Return>', { desc = 'Split window below', noremap = true, silent = true })
+  vim.keymap.set('n', '<leader>ss', ':vsplit<Return>', { desc = 'Split window right', noremap = true, silent = true })
   vim.keymap.set('n', 'sh', '<C-w>h')
   vim.keymap.set('n', 'sk', '<C-w>k')
   vim.keymap.set('n', 'sj', '<C-w>j')
@@ -312,7 +311,7 @@ else
     require 'kickstart.plugins.indent_line',
     require 'kickstart.plugins.lint',
     require 'kickstart.plugins.autopairs',
-    -- require 'kickstart.plugins.neo-tree',
+    require 'kickstart.plugins.neo-tree',
     require 'kickstart.plugins.gitsigns',
     { import = 'custom.plugins' },
   }, {

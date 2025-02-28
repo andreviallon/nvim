@@ -6,7 +6,6 @@ return {
   opts = {
     bufdelete = { enabled = true },
     dashboard = { enabled = true },
-    explorer = { enabled = true },
     git = { enabled = true },
     lazygit = { enabled = true },
     gitbrowse = { enabled = true },
@@ -20,7 +19,6 @@ return {
     { "<leader>.", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
-    { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
     {
       "<leader>ft",
       function()
