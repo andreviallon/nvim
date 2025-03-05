@@ -26,39 +26,16 @@ else
   vim.opt.ignorecase = true
   vim.opt.smartcase = true
 
-  -- [[ Spell Check ]]
-  vim.opt.spell = true
-  vim.opt.spelllang = 'en'
-  vim.opt.spelloptions = 'camel'
-  vim.opt.spellfile = vim.fn.expand '~/.config/nvim/spell/custom.utf-8.add'
-
-  vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'lua', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'markdown' },
-    callback = function()
-      vim.opt.spell = true
-      vim.opt.spelloptions = 'camel'
-    end,
-  })
-
   -- Sync clipboard between OS and Neovim.
   vim.schedule(function()
     vim.opt.clipboard = 'unnamedplus'
   end)
-
-  -- [[ Basic Keymaps ]]
 
   -- Clear highlights on search when pressing <Esc> in normal mode
   vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
   -- Lazy
   vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })
-  vim.keymap.set('n', '<leader>:', 'q:', { desc = 'Command history' })
-
-  -- Window
-  vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
   -- Diagnostics
   vim.keymap.set('n', '<leader>ux', vim.diagnostic.setloclist, { desc = 'Toggle diagnostic quickfix list' })
@@ -68,35 +45,53 @@ else
   vim.keymap.set('n', '<leader>ud', function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   end, { silent = true, noremap = true })
-
   vim.diagnostic.config {
     virtual_text = {
       severity = { min = vim.diagnostic.severity.ERROR },
     },
     underline = {
-      severity = { min = vim.diagnostic.severity.WARN }, -- Underline warnings and above
+      severity = { min = vim.diagnostic.severity.WARN },
     },
     signs = true,
     update_in_insert = false,
   }
+  vim.keymap.set('n', '<leader>dE', function()
+    local diagnostics = vim.diagnostic.get(0)
+    if #diagnostics == 0 then
+      print 'No diagnostics found'
+      return
+    end
+
+    local messages = {}
+    for _, diag in ipairs(diagnostics) do
+      table.insert(messages, diag.message)
+    end
+
+    local output = table.concat(messages, '\n')
+
+    vim.fn.setreg('+', output)
+    print 'Diagnostics copied to clipboard!'
+  end, { desc = 'Copy Diagnostics' })
 
   -- Move lines up and down
-  vim.keymap.set('n', '<C-j>', ':m .+1<CR>==')
-  vim.keymap.set('n', '<C-k>', ':m .-2<CR>==')
   vim.keymap.set('v', '<C-j>', ":m '>+1<CR>gv=gv")
   vim.keymap.set('v', '<C-k>', ":m '<-2<CR>gv=gv")
 
   -- Window
+  vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
   vim.keymap.set('n', '<leader>sh', ':split<Return>', { desc = 'Split window below', noremap = true, silent = true })
   vim.keymap.set('n', '<leader>ss', ':vsplit<Return>', { desc = 'Split window right', noremap = true, silent = true })
-  vim.keymap.set('n', 'sh', '<C-w>h')
-  vim.keymap.set('n', 'sk', '<C-w>k')
-  vim.keymap.set('n', 'sj', '<C-w>j')
-  vim.keymap.set('n', 'sl', '<C-w>l')
-  vim.keymap.set('n', '<C-w><left>', '<C-w><')
-  vim.keymap.set('n', '<C-w><right>', '<C-w>>')
-  vim.keymap.set('n', '<C-w><up>', '<C-w>+')
-  vim.keymap.set('n', '<C-w><down>', '<C-w>-')
+  vim.keymap.set('n', '<C-w><left>', '15<C-w><', { desc = 'Resize window left', noremap = true, silent = true })
+  vim.keymap.set('n', '<C-w><right>', '15<C-w>>', { desc = 'Resize window right', noremap = true, silent = true })
+  vim.keymap.set('n', '<C-w><up>', '5<C-w>+', { desc = 'Resize window up', noremap = true, silent = true })
+  vim.keymap.set('n', '<C-w><down>', '5<C-w>-', { desc = 'Resize window down', noremap = true, silent = true })
+  vim.keymap.set('n', '<leader>wQ', function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_delete(bufnr, { force = true })
+  end, { noremap = true, silent = true, desc = 'Close window and buffer' })
 
   -- Highlight when yanking text
   vim.api.nvim_create_autocmd('TextYankPost', {
@@ -107,7 +102,7 @@ else
     end,
   })
 
-  -- [[ LazyVim ]]
+  -- Lazyvim
   local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
   if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -118,205 +113,14 @@ else
   end ---@diagnostic disable-next-line: undefined-field
   vim.opt.rtp:prepend(lazypath)
 
-  require('lazy').setup({
-    'tpope/vim-sleuth',
-    {
-      'lewis6991/gitsigns.nvim',
-      opts = {
-        signs = {
-          signs = {
-            add = { text = '▎' },
-            change = { text = '▎' },
-            delete = { text = '' },
-            topdelete = { text = '' },
-            changedelete = { text = '▎' },
-            untracked = { text = '▎' },
-          },
-          signs_staged = {
-            add = { text = '▎' },
-            change = { text = '▎' },
-            delete = { text = '' },
-            topdelete = { text = '' },
-            changedelete = { text = '▎' },
-          },
-        },
-      },
-    },
+  require('lazy').setup {
     install = { colorscheme = { 'catppuccin' } },
-    {
-      'catppuccin/nvim',
-      lazy = false,
-      name = 'catppuccin',
-      opts = { colorscheme = 'mocha' },
-      init = function()
-        vim.cmd.colorscheme 'catppuccin-mocha'
-      end,
-    },
-    {
-      'folke/which-key.nvim',
-      event = 'VimEnter',
-      opts = {
-        preset = 'helix',
-        icons = {
-          mappings = vim.g.have_nerd_font,
-          keys = vim.g.have_nerd_font and {} or {
-            Up = '<Up> ',
-            Down = '<Down> ',
-            Left = '<Left> ',
-            Right = '<Right> ',
-            C = '<C-…> ',
-            M = '<M-…> ',
-            D = '<D-…> ',
-            S = '<S-…> ',
-            CR = '<CR> ',
-            Esc = '<Esc> ',
-            ScrollWheelDown = '<ScrollWheelDown> ',
-            ScrollWheelUp = '<ScrollWheelUp> ',
-            NL = '<NL> ',
-            BS = '<BS> ',
-            Space = '<Space> ',
-            Tab = '<Tab> ',
-            F1 = '<F1>',
-            F2 = '<F2>',
-            F3 = '<F3>',
-            F4 = '<F4>',
-            F5 = '<F5>',
-            F6 = '<F6>',
-            F7 = '<F7>',
-            F8 = '<F8>',
-            F9 = '<F9>',
-            F10 = '<F10>',
-            F11 = '<F11>',
-            F12 = '<F12>',
-          },
-        },
-        spec = {
-          { '<leader>a', group = 'AI', icon = { icon = '󰅭 ' } },
-          { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
-          { '<leader>f', group = 'File & Search', icon = { icon = ' ' } },
-          { '<leader>t', group = 'Test', icon = { icon = '󰙨 ' } },
-          { '<leader>g', group = 'Git', icon = { icon = ' ' } },
-          { '<leader>u', group = 'UI', icon = { icon = ' ' } },
-          { '<leader>d', group = 'Diagnostics', icon = { icon = '󱖫 ' } },
-          { '<leader>h', group = 'Harpoon', icon = { icon = '󰙅 ' } },
-          { '<leader>:', group = 'Command History', icon = { icon = ' ' } },
-          { '<leader>q', group = 'Sessions', icon = { icon = ' ' } },
-          { '<leader>n', group = 'Noice', icon = { icon = '󰈸 ' } },
-          {
-            '<leader>b',
-            icon = { icon = ' ' },
-            group = 'Buffer',
-            expand = function()
-              return require('which-key.extras').expand.buf()
-            end,
-          },
-          {
-            '<leader>w',
-            group = 'Window',
-            proxy = '<c-w>',
-            expand = function()
-              return require('which-key.extras').expand.win()
-            end,
-          },
-        },
-      },
-    },
-    config = function(_, opts)
-      require('neotest').setup(opts)
-    end,
-    {
-      'stevearc/conform.nvim',
-      event = { 'BufReadPre', 'BufNewFile' },
-      config = function()
-        local conform = require 'conform'
-
-        conform.setup {
-          formatters_by_ft = {
-            javascript = { 'prettierd' },
-            typescript = { 'prettierd' },
-            javascriptreact = { 'prettierd' },
-            typescriptreact = { 'prettierd' },
-            css = { 'prettierd' },
-            html = { 'prettierd' },
-            json = { 'prettierd' },
-            yaml = { 'prettierd' },
-            markdown = { 'prettierd' },
-            graphql = { 'prettierd' },
-            lua = { 'stylua' },
-            python = { 'isort', 'black' },
-          },
-          format_on_save = {
-            lsp_fallback = true,
-            async = false,
-            timeout_ms = 1000,
-          },
-        }
-        vim.keymap.set({ 'n', 'v' }, '<leader>cf', function()
-          conform.format {
-            lsp_fallback = true,
-            async = false,
-            timeout_ms = 1000,
-          }
-        end, { desc = 'Format file or range' })
-      end,
-    },
-    {
-      'nvim-treesitter/nvim-treesitter',
-      event = { 'BufReadPre', 'BufNewFile' },
-      build = ':TSUpdate',
-      dependencies = {
-        'windwp/nvim-ts-autotag',
-      },
-      main = 'nvim-treesitter.configs',
-      opts = {
-        ensure_installed = {
-          'json',
-          'javascript',
-          'typescript',
-          'tsx',
-          'yaml',
-          'html',
-          'css',
-          'prisma',
-          'markdown',
-          'markdown_inline',
-          'svelte',
-          'graphql',
-          'bash',
-          'lua',
-          'vim',
-          'dockerfile',
-          'gitignore',
-          'query',
-          'vimdoc',
-          'c',
-        },
-        auto_install = true,
-        autotag = {
-          enable = true,
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = '<c-space>',
-            node_incremental = '<C-space>',
-            scope_incremental = false,
-            node_decremental = '<bs>',
-          },
-        },
-        indent = { enable = true },
-      },
-    },
-    -- require 'kickstart.plugins.debug',
+    require 'kickstart.plugins.debug',
     require 'kickstart.plugins.indent_line',
     require 'kickstart.plugins.lint',
     require 'kickstart.plugins.autopairs',
-    require 'kickstart.plugins.neo-tree',
+    -- require 'kickstart.plugins.neo-tree',
     require 'kickstart.plugins.gitsigns',
     { import = 'custom.plugins' },
-  }, {
-    ui = {
-      icons = {},
-    },
-  })
+  }
 end

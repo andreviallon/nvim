@@ -7,6 +7,14 @@ return {
     vim.opt.termguicolors = true
   end,
   opts = {
+    highlights = {
+      buffer_selected = {
+        italic = false,
+      },
+      diagnostic_selected = {
+        italic = false,
+      },
+    },
     options = {
       close_command = 'bd! %d',
       show_tab_indicators = true,
@@ -19,8 +27,6 @@ return {
       offsets = {
         {
           filetype = 'neo-tree',
-          text = 'File Explorer',
-          text_align = 'center',
         },
       },
       max_name_length = 100,
