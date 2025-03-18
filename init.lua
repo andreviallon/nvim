@@ -93,6 +93,18 @@ else
     vim.api.nvim_buf_delete(bufnr, { force = true })
   end, { noremap = true, silent = true, desc = 'Close window and buffer' })
 
+  -- Buffer
+  vim.keymap.set('n', '<leader>bo', function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    for _, b in ipairs(vim.api.nvim_list_bufs()) do
+      if b ~= bufnr and vim.api.nvim_buf_is_loaded(b) then
+        vim.api.nvim_buf_delete(b, {})
+      end
+    end
+  end, { desc = 'Close other buffers' })
+
+  vim.keymap.set('n', '<leader>bD', '<Cmd>:bw!<CR>', { desc = 'Delete buffer force', noremap = true, silent = true })
+
   -- Highlight when yanking text
   vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',

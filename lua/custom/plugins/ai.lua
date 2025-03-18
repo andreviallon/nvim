@@ -8,14 +8,23 @@ return {
     opts = {
       provider = 'openai',
       hints = { enabled = false },
+      openai = {
+        endpoint = 'https://api.openai.com/v1',
+        model = 'gpt-4o',
+        timeout = 30000,
+        temperature = 0,
+        max_tokens = 4096,
+      },
     },
     build = 'make',
     dependencies = {
+      'nvim-treesitter/nvim-treesitter',
       'stevearc/dressing.nvim',
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim',
+      'hrsh7th/nvim-cmp',
+      'ibhagwan/fzf-lua',
       'nvim-tree/nvim-web-devicons',
-      'zbirenbaum/copilot.lua',
       {
         'HakonHarnes/img-clip.nvim',
         event = 'VeryLazy',
@@ -26,7 +35,6 @@ return {
             drag_and_drop = {
               insert_mode = true,
             },
-            use_absolute_path = true,
           },
         },
       },
@@ -63,27 +71,23 @@ return {
       },
       {
         'MeanderingProgrammer/render-markdown.nvim',
-        opts = { file_types = { 'markdown', 'CodeCompanion' } },
-      },
-      {
-        'MeanderingProgrammer/render-markdown.nvim',
         ft = { 'markdown', 'codecompanion' },
       },
-      -- {
-      --   'OXY2DEV/markview.nvim',
-      --   lazy = false,
-      --   opts = {
-      --     preview = {
-      --       filetypes = { 'markdown', 'codecompanion' },
-      --       ignore_buftypes = {},
-      --     },
-      --   },
-      -- },
     },
     opts = {
       strategies = {
         chat = {
           adapter = 'openai',
+          slash_commands = {
+            ['file'] = {
+              callback = 'strategies.chat.slash_commands.file',
+              description = 'Select a file using Telescope',
+              opts = {
+                provider = 'fzf_lua',
+                contains_code = true,
+              },
+            },
+          },
         },
         inline = {
           keymaps = {
@@ -100,10 +104,13 @@ return {
       },
       display = {
         chat = {
+          intro_message = 'Welcome to CodeCompanion ✨! Press ? for options',
           show_header_separator = true,
           separator = '─',
+          show_references = true,
+          show_settings = true,
           show_token_count = true,
-          start_in_insert_mode = true,
+          start_in_insert_mode = false,
         },
         diff = {
           enabled = true,
@@ -125,22 +132,10 @@ return {
     },
     keys = {
       {
-        '<leader>za',
+        '<leader>ac',
         '<cmd>CodeCompanionActions<cr>',
         mode = { 'n', 'v' },
         desc = 'Open CodeCompanion Actions',
-      },
-      {
-        '<leader>zt',
-        '<cmd>CodeCompanionChat Toggle<cr>',
-        mode = { 'n', 'v' },
-        desc = 'Toggle CodeCompanion Chat',
-      },
-      {
-        '<leader>zc',
-        '<cmd>CodeCompanionChat Add<cr>',
-        mode = 'v',
-        desc = 'Add selection to CodeCompanion Chat',
       },
     },
   },
