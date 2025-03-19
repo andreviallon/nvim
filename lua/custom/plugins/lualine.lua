@@ -3,6 +3,10 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
     require('lualine').setup {
+      options = {
+        icons_enabled = false,
+        section_separators = '',
+      },
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },

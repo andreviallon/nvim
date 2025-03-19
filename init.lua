@@ -38,11 +38,11 @@ else
   vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })
 
   -- Diagnostics
-  vim.keymap.set('n', '<leader>ux', vim.diagnostic.setloclist, { desc = 'Toggle diagnostic quickfix list' })
+  vim.keymap.set('n', '<leader>ud', vim.diagnostic.setloclist, { desc = 'Toggle diagnostic quickfix list' })
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous diagnostic message' })
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next diagnostic message' })
   vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open diagnostic error message' })
-  vim.keymap.set('n', '<leader>ud', function()
+  vim.keymap.set('n', '<leader>uD', function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   end, { silent = true, noremap = true })
   vim.diagnostic.config {
@@ -127,7 +127,7 @@ else
 
   require('lazy').setup {
     install = { colorscheme = { 'catppuccin' } },
-    require 'kickstart.plugins.debug',
+    -- require 'kickstart.plugins.debug',
     require 'kickstart.plugins.indent_line',
     require 'kickstart.plugins.lint',
     require 'kickstart.plugins.autopairs',

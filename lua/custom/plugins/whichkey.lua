@@ -47,6 +47,7 @@ return {
       { '<leader><leader>', group = 'Find File', icon = { icon = '' } },
       { '<leader>d', group = 'Diagnostics', icon = { icon = '󱖫' } },
       { '<leader>:', group = 'Command History', icon = { icon = '' } },
+      { '<leader>h', group = 'Harpoon', icon = { icon = '' } },
       { '<leader>q', group = 'Sessions', icon = { icon = '' } },
       { '<leader>s', group = 'Split', icon = { icon = '' } },
       { '<leader>n', group = 'Nofitications', icon = { icon = '' } },
