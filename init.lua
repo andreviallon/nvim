@@ -103,7 +103,7 @@ else
     end
   end, { desc = 'Close other buffers' })
 
-  vim.keymap.set('n', '<leader>bd', '<Cmd>bdelete<CR>', { desc = 'Delete buffer', noremap = true, silent = true })
+  vim.keymap.set('n', '<leader>bd', ':bp|bd #<CR>', { noremap = true, desc = 'Delete buffer' })
   vim.keymap.set('n', '<leader>bD', '<Cmd>:bw!<CR>', { desc = 'Delete buffer force', noremap = true, silent = true })
 
   -- Highlight when yanking text
