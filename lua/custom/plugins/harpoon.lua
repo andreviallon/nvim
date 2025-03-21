@@ -34,10 +34,10 @@ return {
       harpoon:list():add()
     end, { desc = 'Add file to Harpoon' })
 
-    vim.keymap.set('n', '<S-h>', function()
+    vim.keymap.set('n', '<C-S-h>', function()
       harpoon:list():prev()
     end)
-    vim.keymap.set('n', '<S-l>', function()
+    vim.keymap.set('n', '<C-S-l>', function()
       harpoon:list():next()
     end)
 

@@ -103,6 +103,7 @@ else
     end
   end, { desc = 'Close other buffers' })
 
+  vim.keymap.set('n', '<leader>bd', '<Cmd>bdelete<CR>', { desc = 'Delete buffer', noremap = true, silent = true })
   vim.keymap.set('n', '<leader>bD', '<Cmd>:bw!<CR>', { desc = 'Delete buffer force', noremap = true, silent = true })
 
   -- Highlight when yanking text
@@ -131,7 +132,7 @@ else
     require 'kickstart.plugins.indent_line',
     require 'kickstart.plugins.lint',
     require 'kickstart.plugins.autopairs',
-    -- require 'kickstart.plugins.neo-tree',
+    require 'kickstart.plugins.neo-tree',
     require 'kickstart.plugins.gitsigns',
     { import = 'custom.plugins' },
   }
