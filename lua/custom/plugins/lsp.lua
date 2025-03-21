@@ -59,7 +59,6 @@ return {
             end
           end
 
-          -- General LSP keymaps
           map('<leader>cr', vim.lsp.buf.rename, 'Rename')
           map('<leader>ca', vim.lsp.buf.code_action, 'Code action', { 'n', 'x' })
         end,

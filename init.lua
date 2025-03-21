@@ -103,7 +103,6 @@ else
     end
   end, { desc = 'Close other buffers' })
 
-  vim.keymap.set('n', '<leader>bd', ':bp|bd #<CR>', { noremap = true, desc = 'Delete buffer' })
   vim.keymap.set('n', '<leader>bD', '<Cmd>:bw!<CR>', { desc = 'Delete buffer force', noremap = true, silent = true })
 
   -- Highlight when yanking text
@@ -114,6 +113,13 @@ else
       vim.highlight.on_yank()
     end,
   })
+
+  -- Snippets
+  vim.keymap.set('i', '<C-l>', function()
+    local input = vim.fn.input 'Console log with description: '
+    local line = string.format("console.log('%s', %s);", input, input)
+    vim.api.nvim_put({ line }, 'l', true, true)
+  end, { desc = 'Insert console.log with label', noremap = true, silent = true })
 
   -- Lazyvim
   local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -132,7 +138,7 @@ else
     require 'kickstart.plugins.indent_line',
     require 'kickstart.plugins.lint',
     require 'kickstart.plugins.autopairs',
-    require 'kickstart.plugins.neo-tree',
+    -- require 'kickstart.plugins.neo-tree',
     require 'kickstart.plugins.gitsigns',
     { import = 'custom.plugins' },
   }
