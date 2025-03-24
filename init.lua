@@ -78,10 +78,6 @@ else
   vim.keymap.set('v', '<C-k>', ":m '<-2<CR>gv=gv")
 
   -- Window
-  vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
   vim.keymap.set('n', '<leader>sh', ':split<Return>', { desc = 'Split window below', noremap = true, silent = true })
   vim.keymap.set('n', '<leader>ss', ':vsplit<Return>', { desc = 'Split window right', noremap = true, silent = true })
   vim.keymap.set('n', '<C-w><left>', '15<C-w><', { desc = 'Resize window left', noremap = true, silent = true })
@@ -94,6 +90,11 @@ else
   end, { noremap = true, silent = true, desc = 'Close window and buffer' })
 
   -- Buffer
+  vim.keymap.set('n', '<leader>bo', ':%bd|e#|bd# <CR>', { desc = 'Delete other buffers' })
+  vim.keymap.set('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev buffer' })
+  vim.keymap.set('n', '<S-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
+  vim.keymap.set('n', '<leader>bd', ':bd|e# <CR>', { desc = 'Delete buffer' })
+  vim.keymap.set('n', '<leader>bD', '<Cmd>:bw!<CR>', { desc = 'Delete buffer force', noremap = true, silent = true })
   vim.keymap.set('n', '<leader>bo', function()
     local bufnr = vim.api.nvim_get_current_buf()
     for _, b in ipairs(vim.api.nvim_list_bufs()) do
@@ -102,17 +103,6 @@ else
       end
     end
   end, { desc = 'Close other buffers' })
-
-  vim.keymap.set('n', '<leader>bD', '<Cmd>:bw!<CR>', { desc = 'Delete buffer force', noremap = true, silent = true })
-
-  -- Highlight when yanking text
-  vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlight when yanking (copying) text',
-    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-    callback = function()
-      vim.highlight.on_yank()
-    end,
-  })
 
   -- Snippets
   vim.keymap.set('i', '<C-l>', function()

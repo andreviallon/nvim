@@ -2,9 +2,6 @@ return {
   'MagicDuck/grug-far.nvim',
   config = function(_, opts)
     require('grug-far').setup(opts)
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'grug-far',
-    })
   end,
   keys = {
     {

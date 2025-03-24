@@ -4,7 +4,6 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    bufdelete = { enabled = true },
     dashboard = { enabled = true },
     explorer = { enabled = true },
     git = { enabled = true },
@@ -32,7 +31,6 @@ return {
    keys = {
      -- Top Pickers
     { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
-    { "<leader>.", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     {"<leader>e", function() Snacks.explorer.open() end, desc = "Explorer" },
@@ -47,8 +45,9 @@ return {
       desc = "Search by File Type" },
  
     -- Buffers
-    { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     { "<leader>bb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+    { "<leader>.", function() Snacks.picker.buffers() end, desc = "Buffers" },
+    { "<C-b>", function() Snacks.picker.buffers() end, desc = "Buffers" },
  
     -- Files & Search
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
@@ -62,6 +61,7 @@ return {
     { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
     { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
     { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+    { "<leader>fd", function() Snacks.picker.pick("files", { root = false }) end, desc = "Find Files (cwd)" },
 
     -- Diagnostics
     { "<leader>dd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
